@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="gruppeoppgave.css">
+    <title>D dawg project </title>
+</head>
+<body>
+    <div id="app"></div>
+    <script>
+
+
+        //MODEL
+
+        let result = '';
+        let terminatorAttack = '';
+        let appDiv = document.getElementById('app');
+
+       
+
+        let machine = [
+                {name: 'Terminator', health: 200, attacks: [
+                    {name: 'Backbreaker ', power: 20},
+                    {name: 'Brainbuster ', power: 30},
+                ]},
+    ]
+                
+        let player = [
+                {name: 'Leroy Geeroy Jenkins', health: 200, attacks:[
+                    {name: 'Punch:  ', power: 20},
+                    {name: 'Sparke: ', power: 30},
+                ],},
+               
+            ];    
+            
+            
+        //View
+        show();
+        function show(){
+            let html = " ";
+            for(let i = 0; i < machine.length; i++){
+                let currentMachine = machine[i];
+                html += `<div>Navn: ${currentMachine.name}</div>
+                         <div class="healthBar">Health: ${currentMachine.health}</div><br>
+                        `;
+            }
+            html += `<img id="karakter"/>`;
+            for(let i = 0; i < player.length; i++){
+                let currentMachine = player[i];
+                html += `<div>Navn: ${currentMachine.name}</div>
+                         <div class="healthBar">Health: ${currentMachine.health}</div>`;
+
+                for(let j = 0; j < player[i].attacks.length; j++){
+                    let attack = player[i].attacks[j];
+                    html += `<button id="attackbuttons" onclick ="attack(${j})">${attack.name}${attack.power}</button><br>`
+                };
+            };
+            
+            html += `<br><h3>${result}</h3>`
+            html += `<div><h3>Terminator chose!:${terminatorAttack}</h3></div`
+            appDiv.innerHTML = html;
+            
+        };
+
+        
+        //CONTROLLER
+        function attack(index){        
+            console.log('er', index)
+            machine[0].health -= player[0].attacks[index].power;
+            console.log("machine health: " + machine[0].health)
+            if (machine[0].health < 0) {
+                machine[0].health = 0;
+            }
+            machineAttack();
+            };
+
+            function machineAttack(){
+              let random = Math.floor(Math.random()*(2 - 0) + 0);
+              player[0].health -= machine[0].attacks[random].power;
+              terminatorAttack = machine[0].attacks[random].name;
+                console.log('terminatorAttack er', terminatorAttack)
+                if (player[0].health < 0) {
+                    player[0].health = 0;
+                }
+
+                whoWin();
+                show();
+            }
+            
+            function whoWin(){
+                if (player[0].health == 0) {result = 'You Died!'}
+                else if (machine[0].health == 0) {result = 'You Win!'}
+                show();
+            }
+
+
+        
+    </script>
+
+</body>
+</html>

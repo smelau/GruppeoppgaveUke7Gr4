@@ -1,0 +1,13 @@
+body {
+  background-color: grey;
+}
+
+#karakter {
+  content: url("https://symbolics.com/wp-content/uploads/2021/03/leroy%20jenkins_def.png");
+}
+
+.healthBar {
+  border: 1px black solid;
+  width: 100px;
+  background-color: green;
+}
